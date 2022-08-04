@@ -2,7 +2,7 @@ require 'thor'
 
 class FractionCalculation < Thor
   def initialize(params = nil)
-    introduction if params.blank? # Skip introduction when User already know what to input
+    introduction if params.nil? # Skip introduction when User already know what to input
     input = params || get_input
     @array = input.split(' ')
   end
