@@ -1,5 +1,9 @@
 # README
 
+## Setup:
+
+1. `bundle install`
+
 ## Run Fraction calculation:
 
 1. `bin/fraction`
