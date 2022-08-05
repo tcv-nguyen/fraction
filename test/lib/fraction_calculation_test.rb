@@ -11,6 +11,14 @@ class FractionCalculationTest < ActiveSupport::TestCase
     assert_equal calculate('2_3/8 + 9/8'), '3_1/2'
   end
 
+  test 'input -1/2 * 3_3/4' do
+    assert_equal calculate('-1/2 * 3_3/4'), '-1_7/8'
+  end
+
+  test 'input -2_3/8 + 9/8' do
+    assert_equal calculate('-2_3/8 + 9/8'), '-1_1/4'
+  end
+
   # with infraction
   test 'input 19/8 + 9/8' do
     assert_equal calculate('19/8 + 9/8'), '3_1/2'

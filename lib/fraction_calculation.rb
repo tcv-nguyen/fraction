@@ -43,7 +43,10 @@ class FractionCalculation < Thor
     end
 
     def convert_to_fraction(string)
-      string.split('_').map { |n| Rational(n) }.inject(:+)
+      main, partial = string.split('_').map { |n| Rational(n) }
+      # For case of mixed numbers
+      partial = 0 if partial.nil?
+      Rational("#{'-' if main < 0}#{main.abs + partial}")
     end
 
     def display_fraction(fraction)
