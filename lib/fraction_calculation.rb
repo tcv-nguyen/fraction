@@ -1,23 +1,22 @@
 require 'thor'
 
 class FractionCalculation < Thor
-  def initialize(params = nil)
-    introduction if params.nil? # Skip introduction when User already know what to input
-    input = params || get_input
-    @array = input.split(' ')
+  def run!
+    process(get_input)
   end
 
-  def run!
-    if @array.size != 3
+  def process(input)
+    array = input.split(' ')
+    if array.size != 3
       'Invalid input'
     else
-      fraction = calculate(@array)
+      fraction = calculate(array)
       display_fraction(fraction)
     end
   end
 
   private
-    def introduction
+    def instructions
       puts 'Fraction calculation'
       puts '
         - Legal operators shall be *, /, +, - (multiply, divide, add, subtract)
@@ -32,6 +31,7 @@ class FractionCalculation < Thor
     end
 
     def get_input
+      instructions
       ask('> Enter formula:')
     end
 
@@ -47,9 +47,11 @@ class FractionCalculation < Thor
     end
 
     def display_fraction(fraction)
-      top, bottom = fraction.to_s.split('/').map(&:to_i)
+      # Convert to abs for correct calculation on negative numbers
+      top, bottom = fraction.to_s.split('/').map(&:to_i).map(&:abs)
       return fraction.to_s if top < bottom
       # Get whole divition and mod divition and display into format
-      "#{top / bottom}_#{top % bottom}/#{bottom}"
+      # Manually add negative
+      "#{'-' if fraction < 0}#{top / bottom}_#{top % bottom}/#{bottom}"
     end
 end
