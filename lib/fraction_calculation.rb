@@ -44,8 +44,7 @@ class FractionCalculation < Thor
 
     def convert_to_fraction(string)
       main, partial = string.split('_').map { |n| Rational(n) }
-      # For case of mixed numbers
-      partial = 0 if partial.nil?
+      return main if partial.nil?
       Rational("#{'-' if main < 0}#{main.abs + partial}")
     end
 
